@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="Atmos — a modern live weather dashboard with forecasts and weather insights." />
+  <title>Atmos — Live Weather Experience</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <a href="#" class="brand" aria-label="Atmos home">
+        <span class="brand-mark"><i data-lucide="cloud-sun"></i></span>
+        <span>atmos<span class="brand-dot">.</span></span>
+      </a>
+
+      <div class="sidebar-label">WORKSPACE</div>
+
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#overview">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Overview</span>
+        </a>
+        <a class="nav-link" href="#forecast">
+          <i data-lucide="calendar-days"></i>
+          <span>Forecast</span>
+        </a>
+        <a class="nav-link" href="#conditions">
+          <i data-lucide="activity"></i>
+          <span>Conditions</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-note">
+          <div class="note-icon"><i data-lucide="cloud-lightning"></i></div>
+          <h3>Stay ahead of the weather.</h3>
+          <p>Real-time conditions. Better everyday decisions.</p>
+        </div>
+        <p class="sidebar-credit">Designed with curiosity <span>✦</span></p>
+      </div>
+    </aside>
+
+    <!-- Main dashboard -->
+    <main class="main-content" id="overview">
+
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">YOUR PERSONAL WEATHER SPACE</p>
+          <h1>Weather, <span>reimagined.</span></h1>
+          <p class="page-subtitle" id="today-date">Your daily weather overview</p>
+        </div>
+
+        <form class="search-form" id="search-form" role="search">
+          <i data-lucide="search"></i>
+          <input
+            type="search"
+            id="city-input"
+            placeholder="Search a city..."
+            aria-label="Search for a city"
+            autocomplete="off"
+            required
+          />
+          <button type="submit" id="search-button">Search</button>
+        </form>
+      </header>
+
+      <div class="status-message" id="status-message" role="status" aria-live="polite"></div>
+
+      <!-- Current weather -->
+      <section class="current-weather panel" aria-label="Current weather">
+        <div class="weather-copy">
+          <div class="location-line">
+            <i data-lucide="map-pin"></i>
+            <span id="location-name">Colombo, Sri Lanka</span>
+            <span class="live-badge"><span></span> LIVE WEATHER</span>
+          </div>
+
+          <p class="weather-greeting" id="weather-greeting">Here's your sky report.</p>
+
+          <div class="temperature-line">
+            <h2 id="current-temperature">--°</h2>
+            <span class="weather-symbol" id="current-icon" aria-hidden="true">🌤️</span>
+          </div>
+
+          <h3 id="current-condition">Getting the latest conditions...</h3>
+          <p class="feels-like">
+            Feels like <strong id="feels-like">--°C</strong>
+            <span class="weather-separator">·</span>
+            H: <span id="today-high">--°</span>
+            <span class="weather-separator">L:</span>
+            <span id="today-low">--°</span>
+          </p>
+
+          <div class="weather-insight" id="weather-insight">
+            <i data-lucide="sparkles"></i>
+            <span>Discover what the weather has in store for you.</span>
+          </div>
+        </div>
+
+        <div class="weather-art" aria-hidden="true">
+          <div class="weather-orbit orbit-one"></div>
+          <div class="weather-orbit orbit-two"></div>
+          <div class="weather-sun"></div>
+          <div class="weather-cloud cloud-back"></div>
+          <div class="weather-cloud cloud-front"></div>
+          <span class="weather-star star-one">✦</span>
+          <span class="weather-star star-two">✧</span>
+          <span class="weather-star star-three">·</span>
+        </div>
+
+        <div class="weather-footer">
+          <span><i data-lucide="clock-3"></i> Local time: <strong id="local-time">--:--</strong></span>
+          <span><i data-lucide="calendar"></i> <strong id="weather-date">--</strong></span>
+          <span class="updated-label" id="last-updated">Waiting for weather data</span>
+        </div>
+      </section>
+
+      <!-- Weather metrics -->
+      <section class="section-block" id="conditions">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">AT A GLANCE</p>
+            <h2>Today's conditions</h2>
+          </div>
+          <span class="section-caption">Live weather insights</span>
+        </div>
+
+        <div class="metrics-grid">
+          <article class="metric-card panel">
+            <div class="metric-top">
+              <span class="metric-icon humidity-icon"><i data-lucide="droplets"></i></span>
+              <span class="metric-label">Humidity</span>
+            </div>
+            <div class="metric-value"><span id="humidity">--</span><small>%</small></div>
+            <p class="metric-description">Moisture in the air</p>
+            <div class="metric-track"><span id="humidity-bar"></span></div>
+          </article>
+
+          <article class="metric-card panel">
+            <div class="metric-top">
+              <span class="metric-icon wind-icon"><i data-lucide="wind"></i></span>
+              <span class="metric-label">Wind speed</span>
+            </div>
+            <div class="metric-value"><span id="wind-speed">--</span><small> km/h</small></div>
+            <p class="metric-description" id="wind-description">Air movement</p>
+            <div class="metric-track"><span id="wind-bar"></span></div>
+          </article>
+
+          <article class="metric-card panel">
+            <div class="metric-top">
+              <span class="metric-icon rain-icon"><i data-lucide="cloud-rain"></i></span>
+              <span class="metric-label">Precipitation</span>
+            </div>
+            <div class="metric-value"><span id="precipitation">--</span><small> mm</small></div>
+            <p class="metric-description">Current reported amount</p>
+            <div class="metric-track"><span id="rain-bar"></span></div>
+          </article>
+
+          <article class="metric-card panel">
+            <div class="metric-top">
+              <span class="metric-icon uv-icon"><i data-lucide="sun"></i></span>
+              <span class="metric-label">UV index</span>
+            </div>
+            <div class="metric-value"><span id="uv-index">--</span></div>
+            <p class="metric-description" id="uv-description">Sun exposure level</p>
+            <div class="metric-track"><span id="uv-bar"></span></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Forecast -->
+      <section class="section-block" id="forecast">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">PLAN YOUR DAYS</p>
+            <h2>5-day forecast</h2>
+          </div>
+          <span class="section-caption">Today and the days ahead</span>
+        </div>
+
+        <div class="forecast-grid" id="forecast-grid">
+          <article class="forecast-card panel">
+            <p class="forecast-day">Today</p>
+            <span class="forecast-icon">🌤️</span>
+            <p class="forecast-condition">Loading...</p>
+            <div class="forecast-temperatures">
+              <strong>--°</strong><span>--°</span>
+            </div>
+          </article>
+
+          <article class="forecast-card panel">
+            <p class="forecast-day">Day 2</p>
+            <span class="forecast-icon">☁️</span>
+            <p class="forecast-condition">Loading...</p>
+            <div class="forecast-temperatures">
+              <strong>--°</strong><span>--°</span>
+            </div>
+          </article>
+
+          <article class="forecast-card panel">
+            <p class="forecast-day">Day 3</p>
+            <span class="forecast-icon">🌦️</span>
+            <p class="forecast-condition">Loading...</p>
+            <div class="forecast-temperatures">
+              <strong>--°</strong><span>--°</span>
+            </div>
+          </article>
+
+          <article class="forecast-card panel">
+            <p class="forecast-day">Day 4</p>
+            <span class="forecast-icon">☀️</span>
+            <p class="forecast-condition">Loading...</p>
+            <div class="forecast-temperatures">
+              <strong>--°</strong><span>--°</span>
+            </div>
+          </article>
+
+          <article class="forecast-card panel">
+            <p class="forecast-day">Day 5</p>
+            <span class="forecast-icon">🌤️</span>
+            <p class="forecast-condition">Loading...</p>
+            <div class="forecast-temperatures">
+              <strong>--°</strong><span>--°</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <footer class="dashboard-footer">
+        <a href="#" class="footer-brand">atmos<span>.</span></a>
+        <p>Weather data powered by Open-Meteo</p>
+        <p>Built for the curious <span>✦</span></p>
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
